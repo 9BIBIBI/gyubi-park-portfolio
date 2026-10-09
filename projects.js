@@ -16,15 +16,30 @@ window.ARCHIVE_SEED = [
     featured: true,
     categories: ["3D 영상작업"],
     tools: ["Unreal", "C4D"],
-    summary: "한국 정원을 실시간 공간으로 구현한 상업 3D 프로젝트.",
-    description: "전통 정원의 분위기와 공간감을 실시간 엔진 안에서 전달한 프로젝트입니다. 상세 제작 배경과 공개 가능한 범위는 추후 보강합니다.",
+    summary: "인천공항 미디어월을 위해 제작한 한국 정원 3D 애니메이션.",
+    description: "한국의 정원과 전통 놀이, 음악, 생활 풍경을 하나의 순환형 공간 안에 구성한 대형 미디어월 영상입니다.",
     role: "3D production · environment · realtime scene",
     contribution: "정확한 담당 범위와 협업 비율 확인 필요.",
-    result: "상업 프로젝트 결과물. 공개 가능한 이미지와 최종 납품 범위 정리 필요.",
+    result: "인천국제공항 대형 미디어월 상영.",
     target: "Unreal · Realtime · Media Art · 3D Generalist 지원",
     portfolioPoint: "상업 작업의 완성도, Unreal 환경 구성, 공간 연출.",
-    notes: "메인 포트폴리오 1순위. 최종 이미지와 제작 과정 캡처 선별.",
-    image: "",
+    notes: "메인 포트폴리오 1순위. 스토리보드, 최종 영상, 현장 사진 보관.",
+    image: "./assets/korean-garden/cover.jpg",
+    video: {
+      src: "./assets/korean-garden/film.mp4",
+      poster: "./assets/korean-garden/video-poster.jpg",
+      title: "Korean Garden — Final Film"
+    },
+    gallery: [
+      { src: "./assets/korean-garden/airport-mockup.jpg", title: "Airport Display Mockup", wide: true },
+      { src: "./assets/korean-garden/installation-01.jpg", title: "On-site Installation 01" },
+      { src: "./assets/korean-garden/installation-02.jpg", title: "On-site Installation 02" }
+    ],
+    storyboard: [
+      { src: "./assets/korean-garden/storyboard-01.png", title: "Storyboard 01–02" },
+      { src: "./assets/korean-garden/storyboard-02.png", title: "Storyboard 03–04" },
+      { src: "./assets/korean-garden/storyboard-03.png", title: "Storyboard 05–06" }
+    ],
     palette: 0
   },
   {

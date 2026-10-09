@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "gyubi-park-portfolio-v2";
+  const STORAGE_KEY = "gyubi-park-portfolio-v3";
   const CATEGORY_OPTIONS = ["3D 영상작업", "XR/VR", "캐릭터", "브랜딩", "전시", "스터디"];
   const TOOL_OPTIONS = ["Unreal", "C4D", "Blender", "Unity", "visionOS"];
   const palettes = [
@@ -203,6 +203,7 @@
           <h2>${escapeHTML(project.description || project.summary)}</h2>
           <p>${escapeHTML(project.portfolioPoint || "포트폴리오 포인트를 기록해두세요.")}</p>
         </div>
+        ${renderProjectMedia(project)}
         <div class="detail-records">
           ${record("Role", project.role)}
           ${record("Contribution", project.contribution)}
@@ -220,6 +221,52 @@
 
   function record(label, value) {
     return `<div class="record"><span class="record-label">${label}</span><p>${escapeHTML(value || "아직 기록되지 않았습니다.")}</p></div>`;
+  }
+
+  function renderProjectMedia(project) {
+    const video = project.video;
+    const gallery = Array.isArray(project.gallery) ? project.gallery : [];
+    const storyboard = Array.isArray(project.storyboard) ? project.storyboard : [];
+
+    if (!video && gallery.length === 0 && storyboard.length === 0) return "";
+
+    return `
+      <div class="detail-media">
+        ${video ? `
+          <section class="media-section">
+            <div class="media-section-heading"><span>01</span><h3>Film</h3></div>
+            <video class="project-film" controls playsinline preload="metadata" poster="${escapeHTML(video.poster || project.image || "")}">
+              <source src="${escapeHTML(video.src)}" type="video/mp4" />
+            </video>
+          </section>
+        ` : ""}
+        ${gallery.length ? `
+          <section class="media-section">
+            <div class="media-section-heading"><span>02</span><h3>Installation</h3></div>
+            <div class="media-grid">
+              ${gallery.map((item) => mediaFigure(item)).join("")}
+            </div>
+          </section>
+        ` : ""}
+        ${storyboard.length ? `
+          <section class="media-section">
+            <div class="media-section-heading"><span>03</span><h3>Storyboard</h3></div>
+            <div class="storyboard-grid">
+              ${storyboard.map((item) => mediaFigure(item)).join("")}
+            </div>
+          </section>
+        ` : ""}
+      </div>
+    `;
+  }
+
+  function mediaFigure(item) {
+    return `
+      <figure class="media-figure ${item.wide ? "is-wide" : ""}">
+        <img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.title || "프로젝트 이미지")}" loading="lazy" />
+        ${item.title ? `<figcaption>${escapeHTML(item.title)}</figcaption>` : ""}
+      </figure>
+    `;
   }
 
   function closeDetail() {
