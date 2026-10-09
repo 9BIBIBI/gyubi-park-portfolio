@@ -1,9 +1,15 @@
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "gyubi-park-portfolio-v5";
-  const CATEGORY_OPTIONS = ["3D 영상작업", "XR/VR", "캐릭터", "브랜딩", "전시", "스터디"];
+  const STORAGE_KEY = "gyubi-park-portfolio-v20";
+  const CATEGORY_OPTIONS = ["3D 영상작업", "XR/VR", "캐릭터", "브랜딩", "전시"];
   const TOOL_OPTIONS = ["Unreal", "C4D", "Blender", "Unity", "visionOS"];
+  const PROJECT_ORDER = [
+    "techmap-unity", "c6", "visionos-puzzle", "visionos-competition", "c4-character", "ovo", "poin", "boseong-black-tea",
+    "hasou", "korean-garden", "whipped-anamorphic", "japanese-house", "incheon-hologram", "incheon-seasons-spring", "incheon-holiday-chuseok", "stockholm-nft-exhibition", "saatchi",
+    "mbc-from-then-on", "mbc-the-other-side", "mbc-hogwarts", "mbc-mars", "mbc-crayon-shinchan", "mbc-figure", "mbc-merry-christmas"
+  ];
+  const projectOrder = new Map(PROJECT_ORDER.map((id, index) => [id, index]));
   const palettes = [
     ["#d6d0bd", "linear-gradient(135deg,#f6f0d5,#76876d)", "38% 62% 48% 52%"],
     ["#8c83a8", "linear-gradient(145deg,#e8e4ef,#302948)", "48% 52% 20% 80%"],
@@ -83,7 +89,7 @@
       ["category", "categoryFilters", CATEGORY_OPTIONS],
       ["tool", "toolFilters", TOOL_OPTIONS],
       ["year", "yearFilters", unique("year")],
-      ["status", "statusFilters", ["Finished", "In Progress", "Study", "Archived"].filter((item) => unique("status").includes(item))]
+      ["status", "statusFilters", ["Finished", "In Progress", "Archived"].filter((item) => unique("status").includes(item))]
     ];
 
     definitions.forEach(([type, containerId, options]) => {
@@ -111,12 +117,20 @@
         if (state.filters.status !== "ALL" && project.status !== state.filters.status) return false;
         return true;
       })
-      .sort((a, b) => Number(b.featured) - Number(a.featured) || Number(b.year) - Number(a.year));
+      .sort((a, b) => {
+        const aOrder = projectOrder.has(a.id) ? projectOrder.get(a.id) : Number.MAX_SAFE_INTEGER;
+        const bOrder = projectOrder.has(b.id) ? projectOrder.get(b.id) : Number.MAX_SAFE_INTEGER;
+        return aOrder - bOrder || Number(b.year) - Number(a.year);
+      });
   }
 
   function coverStyle(project) {
     const palette = palettes[Number(project.palette ?? 0) % palettes.length];
-    return `--card-bg:${palette[0]};--card-shape:${palette[1]};--shape-radius:${palette[2]};--shape-rotate:${((Number(project.palette) || 0) % 5) * 5 - 10}deg`;
+    const coverScale = Number(project.coverScale) || 1;
+    const coverPosition = project.coverPosition || "50% 50%";
+    const coverOrigin = project.coverOrigin || "50% 50%";
+    const coverFilter = project.coverFilter || "none";
+    return `--card-bg:${project.coverBackground || palette[0]};--card-shape:${palette[1]};--shape-radius:${palette[2]};--shape-rotate:${((Number(project.palette) || 0) % 5) * 5 - 10}deg;--cover-position:${coverPosition};--cover-origin:${coverOrigin};--cover-filter:${coverFilter};--cover-scale:${coverScale};--cover-scale-hover:${(coverScale * 1.035).toFixed(3)}`;
   }
 
   function renderProjects() {
@@ -126,24 +140,28 @@
     $("#emptyState").hidden = projects.length > 0;
     grid.hidden = projects.length === 0;
 
-    grid.innerHTML = projects.map((project, index) => `
-      <article class="project-card">
-        <a class="project-card-link" href="#project/${encodeURIComponent(project.id)}" aria-label="${escapeHTML(project.title)} 상세 보기">
-          <div class="project-cover ${project.image ? "has-image" : ""}" style="${coverStyle(project)}">
-            ${project.image ? `<img src="${escapeHTML(project.image)}" alt="${escapeHTML(project.title)} 커버" loading="lazy" />` : ""}
-            <span class="project-number">${String(index + 1).padStart(2, "0")}</span>
-            <span class="project-status">${escapeHTML(project.status)}</span>
-            ${project.featured ? `<span class="featured-mark">KEY PROJECT</span>` : ""}
-          </div>
-          <div class="project-info">
-            <h3>${escapeHTML(project.title)}</h3>
-            <span class="year">${escapeHTML(project.year)}</span>
-            <p>${escapeHTML(project.summary)}</p>
-            <div class="project-tags">${[...(project.categories || []), ...(project.tools || [])].slice(0, 5).map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
-          </div>
-        </a>
-      </article>
-    `).join("");
+    grid.innerHTML = projects.map((project) => {
+      const coverImage = project.coverImage || project.image;
+      return `
+        <article class="project-card">
+          <a class="project-card-link" href="#project/${encodeURIComponent(project.id)}" aria-label="${escapeHTML(project.title)} 상세 보기">
+            <div class="project-cover ${coverImage || project.coverVideo ? "has-image" : ""}" style="${coverStyle(project)}">
+              ${project.coverVideo
+                ? `<video src="${escapeHTML(project.coverVideo)}" poster="${escapeHTML(project.coverPoster || "")}" muted playsinline preload="metadata" aria-label="${escapeHTML(project.title)} 커버"></video>`
+                : coverImage ? `<img src="${escapeHTML(coverImage)}" alt="${escapeHTML(project.title)} 커버" loading="lazy" />` : ""}
+              <span class="project-status">${escapeHTML(project.status)}</span>
+              ${project.featured ? `<span class="featured-mark">KEY PROJECT</span>` : ""}
+            </div>
+            <div class="project-info">
+              <h3>${escapeHTML(project.title)}</h3>
+              <span class="year">${escapeHTML(project.year)}</span>
+              <p>${escapeHTML(project.summary)}</p>
+              <div class="project-tags">${[...(project.categories || []), ...(project.tools || [])].slice(0, 5).map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
+            </div>
+          </a>
+        </article>
+      `;
+    }).join("");
     renderActiveFilters();
   }
 
@@ -186,9 +204,12 @@
   function renderDetail(project) {
     state.activeProjectId = project.id;
     const heroStyle = coverStyle(project).replaceAll("--card-", "--detail-");
+    const heroPosition = project.heroPosition || "50% 50%";
+    const heroScale = Number(project.heroScale) || 1;
+    const heroOrigin = project.heroOrigin || "50% 50%";
     $("#projectDetail").innerHTML = `
-      <div class="detail-hero" style="${heroStyle};background:${palettes[Number(project.palette ?? 0) % palettes.length][0]}">
-        ${project.image ? `<img src="${escapeHTML(project.image)}" alt="${escapeHTML(project.title)} 대표 이미지" />` : ""}
+      <div class="detail-hero ${project.sansTitle ? "is-sans-title" : ""}" style="${heroStyle};background:${project.coverBackground || palettes[Number(project.palette ?? 0) % palettes.length][0]}">
+        ${project.image ? `<img src="${escapeHTML(project.image)}" alt="${escapeHTML(project.title)} 대표 이미지" style="object-position:${escapeHTML(heroPosition)};transform:scale(${heroScale});transform-origin:${escapeHTML(heroOrigin)}" />` : ""}
         <div class="detail-hero-content">
           <div class="detail-meta">
             <span>${escapeHTML(project.year)}</span><span>·</span><span>${escapeHTML(project.status)}</span>
@@ -201,7 +222,7 @@
       <div class="detail-body">
         <div class="detail-lead">
           <h2>${escapeHTML(project.description || project.summary)}</h2>
-          <p>${escapeHTML(project.portfolioPoint || "포트폴리오 포인트를 기록해두세요.")}</p>
+          <p>${escapeHTML(project.portfolioPoint || "포트폴리오 포인트 미기록")}</p>
         </div>
         ${renderProjectMedia(project)}
         <div class="detail-records">
@@ -221,53 +242,137 @@
   }
 
   function record(label, value) {
-    return `<div class="record"><span class="record-label">${label}</span><p>${escapeHTML(value || "아직 기록되지 않았습니다.")}</p></div>`;
+    return `<div class="record"><span class="record-label">${label}</span><p>${escapeHTML(value || "아직 기록되지 않음")}</p></div>`;
   }
 
   function renderProjectMedia(project) {
+    const orderedMedia = Array.isArray(project.orderedMedia) ? project.orderedMedia : [];
     const video = project.video;
     const mainImages = Array.isArray(project.mainImages) ? project.mainImages : [];
     const process = Array.isArray(project.process) ? project.process : [];
     const gallery = Array.isArray(project.gallery) ? project.gallery : [];
     const storyboard = Array.isArray(project.storyboard) ? project.storyboard : [];
 
+    if (project.plainMedia && orderedMedia.length) {
+      return `
+        <div class="detail-media is-plain">
+          <div class="plain-media-stack">
+            ${orderedMedia.map((item) => plainMediaItem(item)).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    if (orderedMedia.length) {
+      return `
+        <div class="detail-media">
+          <section class="media-section">
+            <div class="media-section-heading"><span>01</span><h3>Media</h3></div>
+            <div class="ordered-media-stack">
+              ${orderedMedia.map((item) => orderedMediaItem(item)).join("")}
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
     if (!video && mainImages.length === 0 && process.length === 0 && gallery.length === 0 && storyboard.length === 0) return "";
 
-    return `
-      <div class="detail-media">
-        ${video ? `
+    let sectionNumber = 0;
+    const number = () => String(++sectionNumber).padStart(2, "0");
+
+    const sectionRenderers = {
+      film: () => video ? `
           <section class="media-section">
-            <div class="media-section-heading"><span>01</span><h3>Film</h3></div>
-            <video class="project-film" controls playsinline preload="metadata" poster="${escapeHTML(video.poster || project.image || "")}">
+            <div class="media-section-heading"><span>${number()}</span><h3>Film</h3></div>
+            <video class="project-film ${video.wide ? "is-ultrawide" : ""}" controls playsinline preload="metadata" poster="${escapeHTML(video.poster || project.image || "")}">
               <source src="${escapeHTML(video.src)}" type="video/mp4" />
             </video>
             ${mainImages.length ? `<div class="main-image-stack">${mainImages.map((item) => mediaFigure(item)).join("")}</div>` : ""}
           </section>
-        ` : ""}
-        ${process.length ? `
+        ` : "",
+      main: () => !video && mainImages.length ? `
           <section class="media-section">
-            <div class="media-section-heading"><span>02</span><h3>Process</h3></div>
+            <div class="media-section-heading"><span>${number()}</span><h3>Main Images</h3></div>
+            <div class="main-image-stack">${mainImages.map((item) => mediaFigure(item)).join("")}</div>
+          </section>
+        ` : "",
+      process: () => process.length ? `
+          <section class="media-section">
+            <div class="media-section-heading"><span>${number()}</span><h3>Process</h3></div>
             <div class="process-grid">
               ${process.map((item) => mediaFigure(item)).join("")}
             </div>
           </section>
-        ` : ""}
-        ${gallery.length ? `
+        ` : "",
+      installation: () => gallery.length ? `
           <section class="media-section">
-            <div class="media-section-heading"><span>03</span><h3>Installation</h3></div>
+            <div class="media-section-heading"><span>${number()}</span><h3>Installation</h3></div>
             <div class="media-grid">
               ${gallery.map((item) => mediaFigure(item)).join("")}
             </div>
           </section>
-        ` : ""}
-        ${storyboard.length ? `
+        ` : "",
+      storyboard: () => storyboard.length ? `
           <section class="media-section">
-            <div class="media-section-heading"><span>04</span><h3>Storyboard</h3></div>
+            <div class="media-section-heading"><span>${number()}</span><h3>Storyboard</h3></div>
             <div class="storyboard-grid">
               ${storyboard.map((item) => mediaFigure(item)).join("")}
             </div>
           </section>
-        ` : ""}
+        ` : ""
+    };
+    const sectionOrder = Array.isArray(project.mediaOrder)
+      ? project.mediaOrder
+      : ["film", "main", "process", "installation", "storyboard"];
+
+    return `
+      <div class="detail-media">
+        ${sectionOrder.map((section) => sectionRenderers[section]?.() || "").join("")}
+      </div>
+    `;
+  }
+
+  function orderedMediaItem(item) {
+    const itemClass = `ordered-media-item${item.dividerBefore ? " has-divider" : ""}${item.small ? " is-small" : ""}`;
+    const itemTitle = item.sectionTitle ? `<h3 class="ordered-media-title">${escapeHTML(item.sectionTitle)}</h3>` : "";
+    if (item.type === "pair") {
+      return `
+        <div class="${itemClass} ordered-media-pair">
+          ${itemTitle}
+          ${(item.items || []).map((pairItem) => mediaFigure(pairItem)).join("")}
+        </div>
+      `;
+    }
+    if (item.type === "video") {
+      return `
+        <figure class="${itemClass} ordered-video-item">
+          ${itemTitle}
+          <video controls playsinline preload="metadata" poster="${escapeHTML(item.poster || "")}">
+            <source src="${escapeHTML(item.src)}" type="video/mp4" />
+          </video>
+          ${item.title ? `<figcaption>${escapeHTML(item.title)}</figcaption>` : ""}
+        </figure>
+      `;
+    }
+    return `<div class="${itemClass}">${itemTitle}${mediaFigure(item)}</div>`;
+  }
+
+  function plainMediaItem(item) {
+    if (item.type === "video") {
+      return `
+        <div class="plain-media-item ${item.dividerBefore ? "has-divider" : ""}">
+          ${item.sectionTitle ? `<h3 class="plain-media-title">${escapeHTML(item.sectionTitle)}</h3>` : ""}
+          <video controls playsinline preload="metadata" poster="${escapeHTML(item.poster || "")}">
+            <source src="${escapeHTML(item.src)}" type="video/mp4" />
+          </video>
+        </div>
+      `;
+    }
+    return `
+      <div class="plain-media-item ${item.dividerBefore ? "has-divider" : ""}">
+        ${item.sectionTitle ? `<h3 class="plain-media-title">${escapeHTML(item.sectionTitle)}</h3>` : ""}
+        <img src="${escapeHTML(item.src)}" alt="프로젝트 이미지" loading="lazy" />
       </div>
     `;
   }

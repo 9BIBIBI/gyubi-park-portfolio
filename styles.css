@@ -224,14 +224,13 @@ kbd { padding: 5px 8px; border: 1px solid var(--line); border-radius: 5px; font:
   backdrop-filter: blur(8px);
 }
 .project-cover.has-image::before, .project-cover.has-image::after { display: none; }
-.project-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s cubic-bezier(.2,.8,.2,1); }
-.project-card-link:hover .project-cover img { transform: scale(1.035); }
-.project-number, .project-status, .featured-mark { position: absolute; z-index: 2; }
-.project-number { top: 14px; left: 14px; font: 11px/1 Georgia, serif; }
+.project-cover img, .project-cover video { width: 100%; height: 100%; object-fit: cover; object-position: var(--cover-position, 50% 50%); transform: scale(var(--cover-scale, 1)); transform-origin: var(--cover-origin, 50% 50%); filter: var(--cover-filter, none); transition: transform 0.65s cubic-bezier(.2,.8,.2,1); }
+.project-card-link:hover .project-cover img, .project-card-link:hover .project-cover video { transform: scale(var(--cover-scale-hover, 1.035)); }
+.project-status, .featured-mark { position: absolute; z-index: 2; }
 .project-status { top: 12px; right: 12px; padding: 6px 8px; border-radius: 999px; background: rgba(242,240,233,0.88); backdrop-filter: blur(8px); font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
 .featured-mark { left: 14px; bottom: 13px; padding: 5px 7px; background: var(--acid); font-size: 8px; letter-spacing: 0.08em; font-weight: 700; }
-.project-info { padding-top: 15px; display: grid; grid-template-columns: 1fr auto; gap: 10px; border-top: 1px solid var(--ink); }
-.project-info h3 { margin: 0; font: 400 clamp(24px, 3vw, 38px)/1 Georgia, serif; letter-spacing: -0.03em; }
+.project-info { padding-top: 15px; display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+.project-info h3 { margin: 0; font: 700 clamp(22px, 2.7vw, 36px)/1.05 Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; letter-spacing: -0.04em; }
 .project-info .year { color: var(--muted); font: 12px Georgia, serif; }
 .project-info p { grid-column: 1 / -1; margin: 2px 0 0; color: #66635d; font-size: 12px; line-height: 1.55; }
 .project-tags { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; padding-top: 3px; }
@@ -280,7 +279,8 @@ footer .text-button.light { color: var(--ink); }
 .detail-hero::after { content:""; position:absolute; inset:0; background: linear-gradient(0deg, rgba(0,0,0,.82), rgba(0,0,0,.02) 72%); }
 .detail-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .detail-hero-content { position: relative; z-index: 1; width: 100%; padding: 90px var(--pad) 55px; }
-.detail-hero h1 { margin: 8px 0 16px; font: 400 clamp(64px, 11vw, 180px)/0.82 Georgia, serif; letter-spacing: -0.06em; }
+.detail-hero h1 { margin: 8px 0 16px; font: 700 clamp(48px, 8vw, 124px)/.92 Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; letter-spacing: -.055em; }
+.detail-hero.is-sans-title h1 { font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; font-size: clamp(48px, 8vw, 124px); font-weight: 700; line-height: .92; letter-spacing: -.055em; }
 .detail-hero p { max-width: 650px; margin: 0; color: rgba(255,255,255,0.72); line-height: 1.7; }
 .detail-meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .detail-body { max-width: var(--max); margin: 0 auto; padding: 88px var(--pad) 130px; }
@@ -290,12 +290,31 @@ footer .text-button.light { color: var(--ink); }
 .detail-media { display: grid; gap: 96px; padding: 92px 0; border-bottom: 1px solid var(--ink); }
 .media-section { min-width: 0; }
 .media-section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 22px; border-top: 1px solid var(--ink); padding-top: 13px; }
-.media-section-heading span { color: var(--muted); font: 10px Georgia, serif; }
-.media-section-heading h3 { margin: 0; font: 400 clamp(28px, 4vw, 58px)/1 Georgia, serif; letter-spacing: -.04em; }
-.project-film { display: block; width: 100%; aspect-ratio: 29 / 9; background: #0d0d0c; object-fit: contain; }
+.detail-media > .media-section:first-child > .media-section-heading { border-top: 0; padding-top: 0; }
+.media-section-heading span { color: var(--muted); font: 600 10px Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+.media-section-heading h3 { margin: 0; font: 700 clamp(28px, 4vw, 58px)/1 Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; letter-spacing: -.04em; }
+.project-film { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0d0d0c; object-fit: contain; }
+.project-film.is-ultrawide { aspect-ratio: 29 / 9; }
 .main-image-stack { display: grid; gap: 16px; margin-top: 16px; }
-.media-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.process-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+.ordered-media-stack { display: grid; gap: 38px; }
+.ordered-media-item { min-width: 0; margin: 0; }
+.ordered-media-item.is-small { width: min(62%, 720px); margin-inline: auto; }
+.ordered-media-item.has-divider { margin-top: 62px; padding-top: 72px; border-top: 1px solid var(--ink); }
+.ordered-media-title { margin: 0 0 24px; font: 700 clamp(28px, 4vw, 58px)/1 Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; letter-spacing: -.04em; }
+.ordered-media-item .media-figure img { display: block; width: 100%; height: auto; min-height: 0; object-fit: contain; }
+.ordered-video-item video { display: block; width: 100%; max-height: 82vh; aspect-ratio: 16 / 9; background: #0d0d0c; object-fit: contain; }
+.ordered-media-item figcaption { padding-top: 9px; color: var(--muted); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.ordered-media-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.ordered-media-pair .ordered-media-title { grid-column: 1 / -1; }
+.ordered-media-pair .media-figure img { display: block; width: 100%; height: auto; min-height: 0; object-fit: contain; }
+.detail-media.is-plain { display: block; padding: 92px 0; border-bottom: 0; }
+.plain-media-stack { display: grid; gap: 18px; }
+.plain-media-item { min-width: 0; }
+.plain-media-item img, .plain-media-item video { display: block; width: 100%; height: auto; background: #111; object-fit: contain; }
+.plain-media-item.has-divider { margin-top: 62px; padding-top: 72px; border-top: 1px solid var(--ink); }
+.plain-media-title { margin: 0 0 24px; font: 700 clamp(28px, 4vw, 58px)/1 Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; letter-spacing: -.04em; }
+.media-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.process-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
 .storyboard-grid { display: grid; gap: 16px; }
 .media-figure { min-width: 0; margin: 0; }
 .media-figure.is-wide { grid-column: 1 / -1; }
@@ -369,7 +388,9 @@ footer .text-button.light { color: var(--ink); }
   .detail-body { padding-top: 58px; }
   .detail-lead { gap: 28px; padding-bottom: 50px; }
   .detail-media { gap: 62px; padding: 58px 0; }
-  .project-film { aspect-ratio: 16 / 9; }
+  .project-film, .project-film.is-ultrawide { aspect-ratio: 16 / 9; }
+  .ordered-media-stack { gap: 26px; }
+  .ordered-media-item.is-small { width: 100%; }
   .media-grid, .process-grid { grid-template-columns: 1fr; }
   .media-figure.is-wide { grid-column: auto; }
   .media-figure img { min-height: 0; height: auto; }
