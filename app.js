@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "gyubi-park-portfolio-v3";
+  const STORAGE_KEY = "gyubi-park-portfolio-v4";
   const CATEGORY_OPTIONS = ["3D 영상작업", "XR/VR", "캐릭터", "브랜딩", "전시", "스터디"];
   const TOOL_OPTIONS = ["Unreal", "C4D", "Blender", "Unity", "visionOS"];
   const palettes = [
@@ -205,6 +205,7 @@
         </div>
         ${renderProjectMedia(project)}
         <div class="detail-records">
+          ${project.period ? record("Period", project.period) : ""}
           ${record("Role", project.role)}
           ${record("Contribution", project.contribution)}
           ${record("Result", project.result)}
@@ -306,6 +307,7 @@
     const existingId = data.get("id");
     const existing = state.projects.find((item) => item.id === existingId);
     return {
+      ...(existing || {}),
       id: existingId || uniqueId(slugify(data.get("title"))),
       title: data.get("title").trim(),
       year: data.get("year").trim(),

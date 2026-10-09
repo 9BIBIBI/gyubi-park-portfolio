@@ -16,14 +16,15 @@ window.ARCHIVE_SEED = [
     featured: true,
     categories: ["3D 영상작업"],
     tools: ["Unreal", "C4D"],
-    summary: "인천공항 미디어월을 위해 제작한 한국 정원 3D 애니메이션.",
-    description: "한국의 정원과 전통 놀이, 음악, 생활 풍경을 하나의 순환형 공간 안에 구성한 대형 미디어월 영상입니다.",
-    role: "3D production · environment · realtime scene",
-    contribution: "정확한 담당 범위와 협업 비율 확인 필요.",
-    result: "인천국제공항 대형 미디어월 상영.",
+    summary: "인천국제공항 탑승동 7,830 × 2,430 대형 LED를 위한 120초 3D 미디어아트.",
+    description: "한국의 놀이와 문화를 3D 미니어처 세계로 재해석해 공항 이용객에게 유쾌하게 전달한 프로젝트입니다.",
+    period: "2023.11–2024.01 · 3 months",
+    role: "기획 · Modeling · Material · Lighting · Animation · Level Design · Rendering",
+    contribution: "Unreal Engine·Cinema 4D 기반 3D 콘텐츠 제작 전반 · 80% 이상",
+    result: "인천국제공항 탑승동 대형 LED용 120초 콘텐츠 제작 및 실제 상영. 7,830 × 2,430 와이드 화면에 맞춘 공간 배치와 장면 구성.",
     target: "Unreal · Realtime · Media Art · 3D Generalist 지원",
-    portfolioPoint: "상업 작업의 완성도, Unreal 환경 구성, 공간 연출.",
-    notes: "메인 포트폴리오 1순위. 스토리보드, 최종 영상, 현장 사진 보관.",
+    portfolioPoint: "초광폭 LED의 시선 흐름을 설계하고 Modeling·Material·Lighting·Animation·Level Design을 연결해 전체 Scene을 제작했습니다.",
+    notes: "프로젝트 목적에 맞는 Asset 선별·커스터마이징, 와이드 화면 공간 구성 및 시선 흐름 판단 경험.",
     image: "./assets/korean-garden/cover.jpg",
     video: {
       src: "./assets/korean-garden/film.mp4",
@@ -36,9 +37,7 @@ window.ARCHIVE_SEED = [
       { src: "./assets/korean-garden/installation-02.jpg", title: "On-site Installation 02" }
     ],
     storyboard: [
-      { src: "./assets/korean-garden/storyboard-01.png", title: "Storyboard 01–02" },
-      { src: "./assets/korean-garden/storyboard-02.png", title: "Storyboard 03–04" },
-      { src: "./assets/korean-garden/storyboard-03.png", title: "Storyboard 05–06" }
+      { src: "./assets/korean-garden/storyboard.png", title: "한국정원 스토리보드", wide: true }
     ],
     palette: 0
   },
