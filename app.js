@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "gyubi-park-portfolio-v4";
+  const STORAGE_KEY = "gyubi-park-portfolio-v5";
   const CATEGORY_OPTIONS = ["3D 영상작업", "XR/VR", "캐릭터", "브랜딩", "전시", "스터디"];
   const TOOL_OPTIONS = ["Unreal", "C4D", "Blender", "Unity", "visionOS"];
   const palettes = [
@@ -226,10 +226,12 @@
 
   function renderProjectMedia(project) {
     const video = project.video;
+    const mainImages = Array.isArray(project.mainImages) ? project.mainImages : [];
+    const process = Array.isArray(project.process) ? project.process : [];
     const gallery = Array.isArray(project.gallery) ? project.gallery : [];
     const storyboard = Array.isArray(project.storyboard) ? project.storyboard : [];
 
-    if (!video && gallery.length === 0 && storyboard.length === 0) return "";
+    if (!video && mainImages.length === 0 && process.length === 0 && gallery.length === 0 && storyboard.length === 0) return "";
 
     return `
       <div class="detail-media">
@@ -239,11 +241,20 @@
             <video class="project-film" controls playsinline preload="metadata" poster="${escapeHTML(video.poster || project.image || "")}">
               <source src="${escapeHTML(video.src)}" type="video/mp4" />
             </video>
+            ${mainImages.length ? `<div class="main-image-stack">${mainImages.map((item) => mediaFigure(item)).join("")}</div>` : ""}
+          </section>
+        ` : ""}
+        ${process.length ? `
+          <section class="media-section">
+            <div class="media-section-heading"><span>02</span><h3>Process</h3></div>
+            <div class="process-grid">
+              ${process.map((item) => mediaFigure(item)).join("")}
+            </div>
           </section>
         ` : ""}
         ${gallery.length ? `
           <section class="media-section">
-            <div class="media-section-heading"><span>02</span><h3>Installation</h3></div>
+            <div class="media-section-heading"><span>03</span><h3>Installation</h3></div>
             <div class="media-grid">
               ${gallery.map((item) => mediaFigure(item)).join("")}
             </div>
@@ -251,7 +262,7 @@
         ` : ""}
         ${storyboard.length ? `
           <section class="media-section">
-            <div class="media-section-heading"><span>03</span><h3>Storyboard</h3></div>
+            <div class="media-section-heading"><span>04</span><h3>Storyboard</h3></div>
             <div class="storyboard-grid">
               ${storyboard.map((item) => mediaFigure(item)).join("")}
             </div>

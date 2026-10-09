@@ -31,10 +31,25 @@ window.ARCHIVE_SEED = [
       poster: "./assets/korean-garden/video-poster.jpg",
       title: "Korean Garden — Final Film"
     },
+    mainImages: [
+      { src: "./assets/korean-garden/main-day.jpg", title: "Korean Garden — Day" },
+      { src: "./assets/korean-garden/main-night.jpg", title: "Korean Garden — Night" }
+    ],
+    process: [
+      { src: "./assets/korean-garden/process-accessory-night-01.jpg", title: "Night Accessory Modeling 01" },
+      { src: "./assets/korean-garden/process-accessory-night-02.jpg", title: "Night Accessory Modeling 02" },
+      { src: "./assets/korean-garden/process-accessory-day-01.jpg", title: "Day Accessory Modeling 01" },
+      { src: "./assets/korean-garden/process-accessory-day-02.jpg", title: "Day Accessory Modeling 02" },
+      { src: "./assets/korean-garden/process-level-design-01.jpg", title: "Level Design 01", wide: true },
+      { src: "./assets/korean-garden/process-level-design-02.jpg", title: "Level Design 02", wide: true },
+      { src: "./assets/korean-garden/process-level-design-03.jpg", title: "Level Design 03", wide: true },
+      { src: "./assets/korean-garden/process-scene-01.jpg", title: "Scene Production 01" },
+      { src: "./assets/korean-garden/process-scene-02.jpg", title: "Scene Production 02" },
+      { src: "./assets/korean-garden/process-scene-03.jpg", title: "Scene Production 03", wide: true }
+    ],
     gallery: [
       { src: "./assets/korean-garden/airport-mockup.jpg", title: "Airport Display Mockup", wide: true },
-      { src: "./assets/korean-garden/installation-01.jpg", title: "On-site Installation 01" },
-      { src: "./assets/korean-garden/installation-02.jpg", title: "On-site Installation 02" }
+      { src: "./assets/korean-garden/installation-01.jpg", title: "On-site Installation", wide: true }
     ],
     storyboard: [
       { src: "./assets/korean-garden/storyboard.png", title: "한국정원 스토리보드", wide: true }
