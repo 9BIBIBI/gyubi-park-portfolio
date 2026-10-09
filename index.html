@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Gyubi Park Portfolio"
+    />
+    <meta name="theme-color" content="#f2f0e9" />
+    <title>Gyubi Park — Portfolio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+    <header class="site-header" id="siteHeader">
+      <a class="brand" href="#/" aria-label="아카이브 홈">
+        <strong>GYUBI PARK</strong>
+        <small>PORTFOLIO</small>
+      </a>
+      <nav aria-label="주요 메뉴">
+        <a href="#archive">Projects</a>
+        <button class="button button-small button-dark" id="openManager" type="button">
+          Manage <span aria-hidden="true">＋</span>
+        </button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="hero">
+        <div class="hero-content">
+          <h1>Portfolio</h1>
+        </div>
+        <div class="hero-index" aria-hidden="true">
+          <span>PROJECTS</span>
+          <strong id="heroProjectCount">13</strong>
+        </div>
+      </section>
+
+      <section class="archive-section" id="archive" aria-labelledby="archiveTitle">
+        <h2 class="sr-only" id="archiveTitle">Projects</h2>
+
+        <div class="archive-toolbar">
+          <label class="search-box">
+            <span class="sr-only">프로젝트 검색</span>
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="제목, 툴, 메모 검색" autocomplete="off" />
+            <kbd>⌘ K</kbd>
+          </label>
+          <div class="toolbar-actions">
+            <button class="text-button" id="clearFilters" type="button">필터 초기화</button>
+            <button class="view-toggle is-active" data-view="grid" type="button" aria-label="그리드 보기">▦</button>
+            <button class="view-toggle" data-view="list" type="button" aria-label="목록 보기">☷</button>
+          </div>
+        </div>
+
+        <div class="archive-layout">
+          <aside class="filters" aria-label="프로젝트 필터">
+            <div class="filter-group" data-filter="category">
+              <button class="filter-heading" type="button" aria-expanded="true">
+                <span>분야</span><span>−</span>
+              </button>
+              <div class="filter-options" id="categoryFilters"></div>
+            </div>
+            <div class="filter-group" data-filter="tool">
+              <button class="filter-heading" type="button" aria-expanded="true">
+                <span>툴</span><span>−</span>
+              </button>
+              <div class="filter-options" id="toolFilters"></div>
+            </div>
+            <div class="filter-group" data-filter="year">
+              <button class="filter-heading" type="button" aria-expanded="true">
+                <span>연도</span><span>−</span>
+              </button>
+              <div class="filter-options" id="yearFilters"></div>
+            </div>
+            <div class="filter-group" data-filter="status">
+              <button class="filter-heading" type="button" aria-expanded="true">
+                <span>상태</span><span>−</span>
+              </button>
+              <div class="filter-options" id="statusFilters"></div>
+            </div>
+          </aside>
+
+          <div class="archive-results">
+            <div class="results-meta" aria-live="polite">
+              <span><strong id="resultCount">13</strong> projects</span>
+              <div id="activeFilters" class="active-filters"></div>
+            </div>
+            <div class="project-grid" id="projectGrid"></div>
+            <div class="empty-state" id="emptyState" hidden>
+              <span>0 results</span>
+              <h3>조건에 맞는 작업이 없습니다.</h3>
+              <p>검색어나 필터를 지우고 다시 살펴보세요.</p>
+              <button class="button button-dark" type="button" data-clear>전체 보기</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <span>GYUBI PARK · PORTFOLIO</span>
+      <button class="text-button light" id="exportFooter" type="button">BACKUP JSON ↗</button>
+    </footer>
+
+    <section class="project-view" id="projectView" aria-labelledby="detailTitle" hidden>
+      <div class="project-view-topbar">
+        <button class="icon-button" id="closeDetail" type="button" aria-label="상세 화면 닫기">←</button>
+        <span>PROJECT RECORD</span>
+        <button class="text-button light" id="editFromDetail" type="button">EDIT RECORD</button>
+      </div>
+      <div id="projectDetail"></div>
+    </section>
+
+    <dialog class="manager-dialog" id="managerDialog">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow dark">ARCHIVE MANAGER</p>
+          <h2 id="managerTitle">새 프로젝트 추가</h2>
+        </div>
+        <button class="icon-button dark" id="closeManager" type="button" aria-label="관리 창 닫기">×</button>
+      </div>
+
+      <form id="projectForm" method="dialog">
+        <input type="hidden" name="id" />
+        <div class="form-grid">
+          <label class="field field-wide">
+            <span>프로젝트명 *</span>
+            <input name="title" required placeholder="예: WHIPPED" />
+          </label>
+          <label class="field">
+            <span>연도 *</span>
+            <input name="year" required inputmode="numeric" placeholder="2026" />
+          </label>
+          <label class="field">
+            <span>상태</span>
+            <select name="status">
+              <option>Finished</option>
+              <option>In Progress</option>
+              <option>Archived</option>
+              <option>Study</option>
+            </select>
+          </label>
+          <label class="field field-wide">
+            <span>한 줄 설명 *</span>
+            <input name="summary" required placeholder="프로젝트 성격과 핵심 결과" />
+          </label>
+          <label class="field">
+            <span>분야</span>
+            <select name="categories">
+              <option>3D 영상작업</option>
+              <option>XR/VR</option>
+              <option>캐릭터</option>
+              <option>브랜딩</option>
+              <option>전시</option>
+              <option>스터디</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>사용 툴</span>
+            <input name="tools" placeholder="Unreal, C4D, Blender, Unity, visionOS" />
+            <small>쉼표로 구분</small>
+          </label>
+          <label class="field field-wide">
+            <span>프로젝트 설명</span>
+            <textarea name="description" rows="3" placeholder="무엇을, 왜 만들었는지"></textarea>
+          </label>
+          <label class="field">
+            <span>내 역할</span>
+            <textarea name="role" rows="3" placeholder="담당 범위"></textarea>
+          </label>
+          <label class="field">
+            <span>기여도</span>
+            <textarea name="contribution" rows="3" placeholder="기여한 부분과 비율"></textarea>
+          </label>
+          <label class="field">
+            <span>결과 / 성과</span>
+            <textarea name="result" rows="3" placeholder="출시, 전시, 수상, 배운 점"></textarea>
+          </label>
+          <label class="field">
+            <span>지원처 메모</span>
+            <textarea name="target" rows="3" placeholder="어떤 회사·직무에 잘 맞는지"></textarea>
+          </label>
+          <label class="field">
+            <span>포트폴리오 포인트</span>
+            <textarea name="portfolioPoint" rows="3" placeholder="이 작업에서 반드시 보여줄 것"></textarea>
+          </label>
+          <label class="field">
+            <span>개인 메모</span>
+            <textarea name="notes" rows="3" placeholder="보완점, 다음 할 일"></textarea>
+          </label>
+          <label class="field field-wide">
+            <span>커버 이미지 경로</span>
+            <input name="image" placeholder="./assets/project-name.jpg" />
+            <small>사이트 폴더 기준 상대 경로 또는 이미지 URL</small>
+          </label>
+          <label class="check-field field-wide">
+            <input name="featured" type="checkbox" />
+            <span>중요 프로젝트로 표시</span>
+          </label>
+        </div>
+        <div class="dialog-footer">
+          <div class="data-actions">
+            <button class="text-button danger" id="deleteProject" type="button" hidden>삭제</button>
+            <button class="text-button" id="resetData" type="button">초기 데이터로 복원</button>
+            <button class="text-button" id="importData" type="button">JSON 불러오기</button>
+            <button class="text-button" id="exportData" type="button">JSON 내보내기</button>
+            <input id="importFile" type="file" accept="application/json" hidden />
+          </div>
+          <button class="button button-dark" type="submit">저장하기</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./projects.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
