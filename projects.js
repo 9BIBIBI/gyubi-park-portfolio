@@ -14,10 +14,7 @@ window.ARCHIVE_SEED = [
     notes: "Asset 선별·커스터마이징, 와이드 화면 공간 구성 및 시선 흐름 판단 경험",
     image: "./assets/korean-garden/cover.jpg",
     video: { src: "./assets/korean-garden/film.mp4", poster: "./assets/korean-garden/video-poster.jpg", title: "Korean Garden — Final Film", wide: true },
-    mainImages: [
-      { src: "./assets/korean-garden/main-day.jpg", title: "Korean Garden — Day" },
-      { src: "./assets/korean-garden/main-night.jpg", title: "Korean Garden — Night" }
-    ],
+    mainImages: [],
     process: [
       { src: "./assets/korean-garden/process-accessory-night-01.jpg", title: "Night Accessory Modeling 01" },
       { src: "./assets/korean-garden/process-accessory-night-02.jpg", title: "Night Accessory Modeling 02" },
@@ -31,6 +28,8 @@ window.ARCHIVE_SEED = [
       { src: "./assets/korean-garden/process-scene-03.jpg", title: "Scene Production 03", wide: true }
     ],
     gallery: [
+      { src: "./assets/korean-garden/main-day.jpg", title: "Korean Garden — Day" },
+      { src: "./assets/korean-garden/main-night.jpg", title: "Korean Garden — Night" },
       { src: "./assets/korean-garden/airport-mockup.jpg", title: "Airport Display Mockup", wide: true },
       { src: "./assets/korean-garden/installation-01.jpg", title: "On-site Installation", wide: true }
     ],

@@ -9,7 +9,7 @@
     />
     <meta name="theme-color" content="#f2f0e9" />
     <title>Gyubi Park — Portfolio</title>
-  <link rel="stylesheet" href="./styles.css?v=20" />
+  <link rel="stylesheet" href="./styles.css?v=25" />
   </head>
   <body>
     <a class="skip-link" href="#main">본문으로 건너뛰기</a>
@@ -20,7 +20,7 @@
       </a>
       <nav aria-label="주요 메뉴">
         <a href="#archive">Projects</a>
-        <button class="button button-small button-dark" id="openManager" type="button">
+        <button class="button button-small button-dark" id="openManager" type="button" hidden>
           Manage <span aria-hidden="true">＋</span>
         </button>
       </nav>
@@ -102,17 +102,22 @@
 
     <footer>
       <span>GYUBI PARK · PORTFOLIO</span>
-      <button class="text-button light" id="exportFooter" type="button">BACKUP JSON ↗</button>
+      <button class="text-button light" id="exportFooter" type="button" hidden>BACKUP JSON ↗</button>
     </footer>
 
     <section class="project-view" id="projectView" aria-labelledby="detailTitle" hidden>
       <div class="project-view-topbar">
         <button class="icon-button" id="closeDetail" type="button" aria-label="상세 화면 닫기">←</button>
         <span>PROJECT RECORD</span>
-        <button class="text-button light" id="editFromDetail" type="button">EDIT RECORD</button>
+        <button class="text-button light" id="editFromDetail" type="button" hidden>EDIT RECORD</button>
       </div>
       <div id="projectDetail"></div>
     </section>
+
+    <dialog class="image-lightbox" id="imageLightbox" aria-label="이미지 크게 보기">
+      <button class="lightbox-close" id="closeLightbox" type="button" aria-label="확대 이미지 닫기">×</button>
+      <img id="lightboxImage" alt="" />
+    </dialog>
 
     <dialog class="manager-dialog" id="managerDialog">
       <div class="dialog-header">
@@ -214,7 +219,7 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="./projects.js?v=20"></script>
-  <script src="./app.js?v=20"></script>
+  <script src="./projects.js?v=25"></script>
+  <script src="./app.js?v=25"></script>
   </body>
 </html>

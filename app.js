@@ -38,6 +38,7 @@
   const $$ = (selector, context = document) => [...context.querySelectorAll(selector)];
   const grid = $("#projectGrid");
   const dialog = $("#managerDialog");
+  const lightbox = $("#imageLightbox");
   const form = $("#projectForm");
   const toast = $("#toast");
 
@@ -209,7 +210,7 @@
     const heroOrigin = project.heroOrigin || "50% 50%";
     $("#projectDetail").innerHTML = `
       <div class="detail-hero ${project.sansTitle ? "is-sans-title" : ""}" style="${heroStyle};background:${project.coverBackground || palettes[Number(project.palette ?? 0) % palettes.length][0]}">
-        ${project.image ? `<img src="${escapeHTML(project.image)}" alt="${escapeHTML(project.title)} 대표 이미지" style="object-position:${escapeHTML(heroPosition)};transform:scale(${heroScale});transform-origin:${escapeHTML(heroOrigin)}" />` : ""}
+        ${project.image ? `<img src="${escapeHTML(project.image)}" alt="${escapeHTML(project.title)} 대표 이미지" tabindex="0" role="button" aria-label="${escapeHTML(project.title)} 대표 이미지 크게 보기" style="object-position:${escapeHTML(heroPosition)};transform:scale(${heroScale});transform-origin:${escapeHTML(heroOrigin)}" />` : ""}
         <div class="detail-hero-content">
           <div class="detail-meta">
             <span>${escapeHTML(project.year)}</span><span>·</span><span>${escapeHTML(project.status)}</span>
@@ -219,7 +220,7 @@
           <p>${escapeHTML(project.summary)}</p>
         </div>
       </div>
-      <div class="detail-body">
+      <div class="detail-body" data-project-id="${escapeHTML(project.id)}">
         <div class="detail-lead">
           <h2>${escapeHTML(project.description || project.summary)}</h2>
           <p>${escapeHTML(project.portfolioPoint || "포트폴리오 포인트 미기록")}</p>
@@ -361,7 +362,7 @@
   function plainMediaItem(item) {
     if (item.type === "video") {
       return `
-        <div class="plain-media-item ${item.dividerBefore ? "has-divider" : ""}">
+        <div class="plain-media-item is-video ${item.dividerBefore ? "has-divider" : ""}">
           ${item.sectionTitle ? `<h3 class="plain-media-title">${escapeHTML(item.sectionTitle)}</h3>` : ""}
           <video controls playsinline preload="metadata" poster="${escapeHTML(item.poster || "")}">
             <source src="${escapeHTML(item.src)}" type="video/mp4" />
@@ -370,9 +371,9 @@
       `;
     }
     return `
-      <div class="plain-media-item ${item.dividerBefore ? "has-divider" : ""}">
+      <div class="plain-media-item is-image ${item.dividerBefore ? "has-divider" : ""}">
         ${item.sectionTitle ? `<h3 class="plain-media-title">${escapeHTML(item.sectionTitle)}</h3>` : ""}
-        <img src="${escapeHTML(item.src)}" alt="프로젝트 이미지" loading="lazy" />
+        <img src="${escapeHTML(item.src)}" alt="프로젝트 이미지" loading="lazy" tabindex="0" role="button" aria-label="프로젝트 이미지 크게 보기" />
       </div>
     `;
   }
@@ -380,7 +381,7 @@
   function mediaFigure(item) {
     return `
       <figure class="media-figure ${item.wide ? "is-wide" : ""}">
-        <img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.title || "프로젝트 이미지")}" loading="lazy" />
+        <img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.title || "프로젝트 이미지")}" loading="lazy" tabindex="0" role="button" aria-label="${escapeHTML(item.title || "프로젝트 이미지")} 크게 보기" />
         ${item.title ? `<figcaption>${escapeHTML(item.title)}</figcaption>` : ""}
       </figure>
     `;
@@ -391,6 +392,13 @@
     document.body.style.overflow = "";
     state.activeProjectId = null;
     if (location.hash.startsWith("#project/")) history.replaceState(null, "", "#/" );
+  }
+
+  function openLightbox(image) {
+    const lightboxImage = $("#lightboxImage");
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt || "프로젝트 이미지";
+    lightbox.showModal();
   }
 
   function handleRoute() {
@@ -483,7 +491,11 @@
         $("#searchInput").focus();
         $("#archive").scrollIntoView({ behavior: "smooth" });
       }
-      if (event.key === "Escape" && !$("#projectView").hidden) closeDetail();
+      if (event.key === "Escape" && lightbox.open) {
+        lightbox.close();
+      } else if (event.key === "Escape" && !$("#projectView").hidden) {
+        closeDetail();
+      }
     });
 
     $(".filters").addEventListener("click", (event) => {
@@ -518,6 +530,20 @@
       if (event.target === dialog) dialog.close();
     });
     $("#closeDetail").addEventListener("click", closeDetail);
+    $("#projectDetail").addEventListener("click", (event) => {
+      const image = event.target.closest("img");
+      if (image) openLightbox(image);
+    });
+    $("#projectDetail").addEventListener("keydown", (event) => {
+      const image = event.target.closest("img[role='button']");
+      if (!image || !["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      openLightbox(image);
+    });
+    $("#closeLightbox").addEventListener("click", () => lightbox.close());
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) lightbox.close();
+    });
     $("#editFromDetail").addEventListener("click", () => {
       const project = state.projects.find((item) => item.id === state.activeProjectId);
       if (project) openManager(project);
