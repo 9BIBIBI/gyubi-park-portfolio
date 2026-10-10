@@ -63,8 +63,8 @@ window.ARCHIVE_SEED = [
     result: "주요 화면과 로우파이 스케치 제작", target: "App Design · UI/UX · Local Community",
     portfolioPoint: "손으로 그린 로우파이에서 주요 화면과 기능 흐름을 구체화",
     notes: "앱 화면 → 메인 이미지 → 04-1 → 로우파이 순서", image: "./assets/poin-04-1.jpg",
-    coverImage: "./assets/poin-04-1.jpg", coverPosition: "50% 50%", coverScale: 2.7, coverOrigin: "110% 23%", coverBackground: "#1d1d1f",
-    heroPosition: "50% 50%", heroScale: 2.7, heroOrigin: "110% 23%",
+    coverImage: "./assets/poin-04-1.jpg", coverPosition: "50% 50%", coverScale: 2.7, coverOrigin: "95% 23%", coverBackground: "#1d1d1f",
+    heroPosition: "50% 50%", heroScale: 2.7, heroOrigin: "95% 23%",
     orderedMedia: [
       { type: "pair", items: [
         { src: "./assets/poin-screen-01.jpg", title: "App Screen 01" },
