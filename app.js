@@ -2,8 +2,7 @@
   "use strict";
 
   const STORAGE_KEY = "gyubi-park-portfolio-v20";
-  const CATEGORY_OPTIONS = ["3D 영상작업", "XR/VR", "캐릭터", "브랜딩", "전시"];
-  const TOOL_OPTIONS = ["Unreal", "C4D", "Blender", "Unity", "visionOS"];
+  const CATEGORY_OPTIONS = ["3D / Motion", "XR", "Apps", "Character", "AI", "Exhibition"];
   const PROJECT_ORDER = [
     "techmap-unity", "c6", "visionos-puzzle", "visionos-competition", "c4-character", "ovo", "poin", "boseong-black-tea",
     "hasou", "korean-garden", "whipped-anamorphic", "japanese-house", "incheon-hologram", "incheon-seasons-spring", "incheon-holiday-chuseok", "stockholm-nft-exhibition", "saatchi",
@@ -28,9 +27,8 @@
 
   const state = {
     projects: loadProjects(),
-    filters: { category: "ALL", tool: "ALL", year: "ALL", status: "ALL" },
-    search: "",
-    view: localStorage.getItem("gyubi-portfolio-view") || "grid",
+    filters: { category: "ALL" },
+    view: "grid",
     activeProjectId: null
   };
 
@@ -49,7 +47,32 @@
   function loadProjects() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : cloneSeed();
+      const projects = stored ? JSON.parse(stored) : cloneSeed();
+      return projects.map((project) => {
+        const categories = (project.categories || []).map((category) => {
+          if (["3D 영상작업", "3D 콘텐츠", "Motion", "CGI"].includes(category)) return "3D / Motion";
+          if (category === "XR/VR") return "XR";
+          if (category === "App / UI") return "Apps";
+          if (category === "캐릭터") return "Character";
+          if (["브랜딩", "Branding"].includes(category)) return "AI";
+          if (category === "전시") return "Exhibition";
+          return category;
+        });
+        if (["poin", "c4-character"].includes(project.id) && !categories.includes("Apps")) categories.push("Apps");
+        if (project.id === "ovo" && !categories.includes("Character")) categories.push("Character");
+        if (project.id === "techmap-unity" && !categories.includes("XR")) categories.push("XR");
+        let tools = [...(project.tools || [])];
+        if (project.id === "poin" && !tools.includes("Figma")) tools.push("Figma");
+        if (project.id === "boseong-black-tea" && !tools.includes("Photoshop")) tools.push("Photoshop");
+        if (project.id === "c4-character" && !tools.includes("Figma")) tools.push("Figma");
+        if (project.id === "hasou" && !tools.includes("ChatGPT")) tools.push("ChatGPT");
+        if (project.id === "stockholm-nft-exhibition" && !tools.includes("3D Scan")) tools.unshift("3D Scan");
+        if (project.id === "japanese-house") tools = tools.filter((tool) => tool !== "Unreal");
+        if (project.id === "incheon-seasons-spring") tools = ["Unreal"];
+        if (project.id === "saatchi") tools = ["Unreal"];
+        const year = ["whipped-anamorphic", "japanese-house"].includes(project.id) ? "2025" : project.year;
+        return { ...project, categories, tools, year };
+      });
     } catch (error) {
       console.warn("저장 데이터를 불러오지 못해 초기 데이터를 사용합니다.", error);
       return cloneSeed();
@@ -62,6 +85,10 @@
 
   function escapeHTML(value = "") {
     return String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
+  }
+
+  function displayToolName(tool) {
+    return tool === "Unreal" ? "UE" : tool;
   }
 
   function slugify(value) {
@@ -86,36 +113,21 @@
   }
 
   function renderFilters() {
-    const definitions = [
-      ["category", "categoryFilters", CATEGORY_OPTIONS],
-      ["tool", "toolFilters", TOOL_OPTIONS],
-      ["year", "yearFilters", unique("year")],
-      ["status", "statusFilters", ["Finished", "In Progress", "Archived"].filter((item) => unique("status").includes(item))]
-    ];
-
-    definitions.forEach(([type, containerId, options]) => {
-      const container = $(`#${containerId}`);
-      container.innerHTML = ["ALL", ...options].map((option) => `
-        <button class="filter-chip ${state.filters[type] === option ? "is-active" : ""}" type="button" data-filter-type="${type}" data-filter-value="${escapeHTML(option)}" aria-pressed="${state.filters[type] === option}">
-          ${escapeHTML(option)}
+    const container = $("#categoryFilters");
+    container.innerHTML = ["ALL", ...CATEGORY_OPTIONS].map((option) => {
+      const label = option === "ALL" ? "All" : option;
+      return `
+        <button class="filter-chip ${state.filters.category === option ? "is-active" : ""}" type="button" data-filter-type="category" data-filter-value="${escapeHTML(option)}" aria-pressed="${state.filters.category === option}">
+          ${escapeHTML(label)}
         </button>
-      `).join("");
-    });
+      `;
+    }).join("");
   }
 
   function getFilteredProjects() {
-    const search = state.search.trim().toLowerCase();
     return state.projects
       .filter((project) => {
-        const haystack = [
-          project.title, project.summary, project.description, project.role,
-          project.target, project.notes, ...(project.categories || []), ...(project.tools || [])
-        ].join(" ").toLowerCase();
-        if (search && !haystack.includes(search)) return false;
         if (state.filters.category !== "ALL" && !project.categories?.includes(state.filters.category)) return false;
-        if (state.filters.tool !== "ALL" && !project.tools?.includes(state.filters.tool)) return false;
-        if (state.filters.year !== "ALL" && String(project.year) !== state.filters.year) return false;
-        if (state.filters.status !== "ALL" && project.status !== state.filters.status) return false;
         return true;
       })
       .sort((a, b) => {
@@ -150,14 +162,13 @@
               ${project.coverVideo
                 ? `<video src="${escapeHTML(project.coverVideo)}" poster="${escapeHTML(project.coverPoster || "")}" muted playsinline preload="metadata" aria-label="${escapeHTML(project.title)} 커버"></video>`
                 : coverImage ? `<img src="${escapeHTML(coverImage)}" alt="${escapeHTML(project.title)} 커버" loading="lazy" />` : ""}
-              <span class="project-status">${escapeHTML(project.status)}</span>
+              ${(project.tools || []).length ? `<div class="project-tools">${project.tools.slice(0, 3).map((tool) => `<span>${escapeHTML(displayToolName(tool))}</span>`).join("")}</div>` : ""}
               ${project.featured ? `<span class="featured-mark">KEY PROJECT</span>` : ""}
             </div>
             <div class="project-info">
               <h3>${escapeHTML(project.title)}</h3>
               <span class="year">${escapeHTML(project.year)}</span>
               <p>${escapeHTML(project.summary)}</p>
-              <div class="project-tags">${[...(project.categories || []), ...(project.tools || [])].slice(0, 5).map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>
             </div>
           </a>
         </article>
@@ -168,9 +179,7 @@
 
   function renderActiveFilters() {
     const container = $("#activeFilters");
-    const buttons = [];
-    if (state.search) buttons.push(`<button class="active-filter" data-remove-search>“${escapeHTML(state.search)}” ×</button>`);
-    container.innerHTML = buttons.join("");
+    container.innerHTML = "";
   }
 
   function toggleFilter(type, value) {
@@ -184,9 +193,7 @@
   }
 
   function clearFilters() {
-    Object.keys(state.filters).forEach((type) => { state.filters[type] = "ALL"; });
-    state.search = "";
-    $("#searchInput").value = "";
+    state.filters.category = "ALL";
     $$(".filter-chip").forEach((button) => {
       const isAll = button.dataset.filterValue === "ALL";
       button.classList.toggle("is-active", isAll);
@@ -481,16 +488,7 @@
     window.addEventListener("hashchange", handleRoute);
     window.addEventListener("scroll", () => $("#siteHeader").classList.toggle("is-sticky", window.scrollY > window.innerHeight * 0.75), { passive: true });
 
-    $("#searchInput").addEventListener("input", (event) => {
-      state.search = event.target.value;
-      renderProjects();
-    });
     document.addEventListener("keydown", (event) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        $("#searchInput").focus();
-        $("#archive").scrollIntoView({ behavior: "smooth" });
-      }
       if (event.key === "Escape" && lightbox.open) {
         lightbox.close();
       } else if (event.key === "Escape" && !$("#projectView").hidden) {
@@ -498,31 +496,11 @@
       }
     });
 
-    $(".filters").addEventListener("click", (event) => {
+    $("#categoryFilters").addEventListener("click", (event) => {
       const chip = event.target.closest(".filter-chip");
       if (chip) toggleFilter(chip.dataset.filterType, chip.dataset.filterValue);
-      const heading = event.target.closest(".filter-heading");
-      if (heading) {
-        const options = heading.nextElementSibling;
-        options.hidden = !options.hidden;
-        heading.setAttribute("aria-expanded", String(!options.hidden));
-        heading.lastElementChild.textContent = options.hidden ? "+" : "−";
-      }
     });
-
-    $("#activeFilters").addEventListener("click", (event) => {
-      const button = event.target.closest("button");
-      if (!button) return;
-      if (button.hasAttribute("data-remove-search")) {
-        state.search = "";
-        $("#searchInput").value = "";
-        renderProjects();
-      }
-    });
-
-    $("#clearFilters").addEventListener("click", clearFilters);
     $("[data-clear]").addEventListener("click", clearFilters);
-    $$(".view-toggle").forEach((button) => button.addEventListener("click", () => setView(button.dataset.view)));
 
     $("#openManager").addEventListener("click", () => openManager());
     $("#closeManager").addEventListener("click", () => dialog.close());

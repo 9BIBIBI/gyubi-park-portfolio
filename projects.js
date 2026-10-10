@@ -2,7 +2,7 @@
 window.ARCHIVE_SEED = [
   {
     id: "korean-garden", title: "Korean Garden", year: "2024", status: "Finished", featured: true,
-    categories: ["3D 영상작업"], tools: ["Unreal", "C4D"],
+    categories: ["3D / Motion"], tools: ["Unreal", "C4D"],
     summary: "인천국제공항 탑승동 7,830 × 2,430 대형 LED를 위한 120초 3D 미디어아트",
     description: "한국의 놀이와 문화를 3D 미니어처 세계로 재해석해 공항 이용객에게 유쾌하게 전달한 프로젝트",
     period: "2023.11–2024.01 · 3 months",
@@ -38,7 +38,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "ovo", title: "visionOS OVO", year: "2026", status: "Finished", featured: true,
-    categories: ["XR/VR"], tools: ["visionOS", "C4D"],
+    categories: ["XR", "Character"], tools: ["visionOS", "C4D"],
     summary: "visionOS 환경에서 캐릭터와 공간 경험을 연결한 프로젝트",
     description: "공간 안에 등장한 OVO와 사용자가 만나고 반응하는 과정을 시각화한 visionOS 작업",
     role: "Spatial 3D · Character asset · Visual direction", contribution: "3D 캐릭터와 공간 연출, 실기기 테스트 자료 정리",
@@ -57,7 +57,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "poin", title: "PO:IN", year: "2026", status: "Finished", featured: false,
-    categories: [], tools: [], summary: "포항에서 관심사가 맞는 사람을 찾는 소모임 앱",
+    categories: ["Apps"], tools: ["Figma"], summary: "포항에서 관심사가 맞는 사람을 찾는 소모임 앱",
     description: "포항 지역의 모임을 탐색하고 직접 만들 수 있도록 구성한 모바일 앱",
     role: "App concept · UI design · Low-fidelity sketch", contribution: "개인 작업 100%",
     result: "주요 화면과 로우파이 스케치 제작", target: "App Design · UI/UX · Local Community",
@@ -92,7 +92,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "techmap-unity", title: "Blue Dot", year: "2026", status: "In Progress", featured: true,
-    categories: ["전시"], tools: ["Unity"], summary: "Unity 기반 인터랙션 전시 프로젝트",
+    categories: ["XR", "Exhibition"], tools: ["Unity"], summary: "Unity 기반 인터랙션 전시 프로젝트",
     description: "전시 환경에서 실시간 인터랙션이 작동하도록 설계하고 구현한 작업",
     role: "Unity realtime · Interaction · Exhibition content", contribution: "인터랙션 설계 및 구현", result: "전시 기록 자료 추가 예정",
     target: "Creative Tech · Unity · Interactive Exhibition", portfolioPoint: "실제 공간에서 작동하는 인터랙션과 현장 대응 경험",
@@ -101,7 +101,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "c6", title: "visionOS 에스포항병원", year: "2026", status: "In Progress", featured: false,
-    categories: ["XR/VR"], tools: ["visionOS"], summary: "리서치와 협업 과정이 포함된 visionOS 클라이언트 프로젝트",
+    categories: ["XR"], tools: ["visionOS"], summary: "리서치와 협업 과정이 포함된 visionOS 클라이언트 프로젝트",
     description: "클라이언트 요구와 공간 컴퓨팅 환경을 연결한 협업 프로젝트", role: "Research · Collaboration · Spatial asset support",
     contribution: "공개 가능 범위 확인 필요", result: "최종 산출물 추가 예정", target: "XR Product · Client Collaboration · Spatial Design",
     portfolioPoint: "리서치에서 결과물까지의 협업 과정", notes: "공개 범위를 확인한 뒤 자료 추가", image: "./assets/c6-hospital-tv.jpg",
@@ -109,7 +109,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "visionos-puzzle", title: "visionOS Puzzle", year: "2026", status: "Finished", featured: false,
-    categories: ["XR/VR"], tools: ["visionOS", "Blender"], summary: "visionOS에서 3D 퍼즐을 조작하는 공간형 프로젝트",
+    categories: ["XR"], tools: ["visionOS", "Blender"], summary: "visionOS에서 3D 퍼즐을 조작하는 공간형 프로젝트",
     description: "Blender로 제작한 3D 에셋을 Xcode로 옮겨 visionOS 시뮬레이터에서 동작을 테스트한 프로젝트",
     role: "visionOS test code · Blender modeling · Xcode integration", contribution: "개인 작업 100%",
     result: "3D 퍼즐 모델링과 visionOS 시뮬레이터 테스트 완료", target: "XR · visionOS · Spatial Interaction",
@@ -129,7 +129,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "hasou", title: "HASOU", year: "2026", status: "Finished", featured: false,
-    categories: ["브랜딩"], tools: [], summary: "제품과 공간 이미지를 하나의 시각 언어로 연결한 브랜딩 프로젝트",
+    categories: ["AI"], tools: ["ChatGPT"], summary: "제품과 공간 이미지를 하나의 시각 언어로 연결한 브랜딩 프로젝트",
     description: "HASOU의 로고와 제품 비주얼을 순차적으로 정리한 작업", role: "Brand visual · Art direction · Image production",
     contribution: "개인 작업 100%", result: "로고와 브랜드 비주얼 시리즈 제작", target: "Brand Visual · Creative Direction",
     portfolioPoint: "제품 이미지 전반에 일관된 분위기와 톤 구축", notes: "선택한 순서대로 정리", image: "./assets/hasou-01.jpg",
@@ -141,7 +141,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "stockholm-nft-exhibition", title: "Stockholm NFT", year: "2023", status: "Finished", featured: false,
-    categories: ["전시"], tools: ["C4D"], summary: "실물 작품을 3D 애니메이션으로 확장해 스톡홀름에서 전시한 작업",
+    categories: ["Exhibition"], tools: ["3D Scan", "C4D"], summary: "실물 작품을 3D 애니메이션으로 확장해 스톡홀름에서 전시한 작업",
     description: "물리 작품의 형태를 디지털 오브젝트와 애니메이션으로 변환해 전시한 프로젝트",
     role: "3D scan · Cinema 4D · Animation · Exhibition output", contribution: "3D 콘텐츠 제작 및 전시 출력", result: "Stockholm NFT Exhibition 전시",
     target: "Media Art · Exhibition · Experimental 3D", portfolioPoint: "Physical → 3D Animation → Exhibition으로 이어지는 변환 과정",
@@ -156,7 +156,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "visionos-competition", title: "HelixLab", year: "2026", status: "Finished", featured: false,
-    categories: ["XR/VR"], tools: ["visionOS", "C4D"], summary: "visionOS에서 DNA 실험 과정을 체험하는 공간형 콘텐츠",
+    categories: ["XR"], tools: ["visionOS", "C4D"], summary: "visionOS에서 DNA 실험 과정을 체험하는 공간형 콘텐츠",
     description: "DNA 실험 과정을 공간 안에서 단계별로 체험하도록 구성한 visionOS 프로젝트", role: "3D assets · Spatial experience · Interaction design",
     contribution: "3D 에셋과 공간 연출 제작", result: "visionOS 경진대회 출품", target: "XR · visionOS · Spatial Experience",
     portfolioPoint: "실험 도구와 DNA 구조를 공간형 인터랙션으로 구성", notes: "01 → 02 → 03 → 04 → 05 순서", image: "./assets/helixlab-main.jpg",
@@ -170,8 +170,8 @@ window.ARCHIVE_SEED = [
     ], palette: 7
   },
   {
-    id: "whipped-anamorphic", title: "WHIPPED", year: "2026", status: "In Progress", featured: false,
-    categories: ["3D 영상작업"], tools: ["C4D"], summary: "제품을 위한 anamorphic 3D visual test",
+    id: "whipped-anamorphic", title: "WHIPPED", year: "2025", status: "In Progress", featured: false,
+    categories: ["3D / Motion"], tools: ["C4D"], summary: "제품을 위한 anamorphic 3D visual test",
     description: "제품 광고 맥락에서 아나모픽 공간감과 모션을 실험한 개인 작업", role: "Product visual · Anamorphic · Motion",
     contribution: "개인 작업 100%", result: "테스트 영상과 대표 이미지 제작", target: "Advertising · Brand Content · 3D Motion",
     portfolioPoint: "제품 연출과 아나모픽 효과를 함께 실험", notes: "개인 작업 아카이브", image: "./assets/whipped-main-01.jpg",
@@ -180,7 +180,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "boseong-black-tea", title: "보성홍차 캐릭터 공모전", year: "2025", status: "Finished", featured: false,
-    categories: ["캐릭터"], tools: ["C4D"], summary: "동원F&B 보성홍차 아이스티 캐릭터 공모전 1등 수상작",
+    categories: ["Character"], tools: ["C4D", "Photoshop"], summary: "동원F&B 보성홍차 아이스티 캐릭터 공모전 1등 수상작",
     description: "보성홍차 아이스티 제품군에 맞춰 캐릭터와 패키지 활용 이미지를 제안한 프로젝트",
     role: "Character design · 3D visual · Mock-up", contribution: "개인 작업 100%",
     result: "라우드소싱 [동원F&B] 대한민국 NO.1 보성홍차 아이스티 캐릭터 공모전 1등 · 2025.06.24",
@@ -197,7 +197,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "c4-character", title: "RunMate Character", year: "2026", status: "Finished", featured: false,
-    categories: ["캐릭터"], tools: ["C4D"], summary: "캐릭터를 중심으로 화면과 공간 경험을 구성한 프로젝트",
+    categories: ["Character", "Apps"], tools: ["C4D", "Figma"], summary: "캐릭터를 중심으로 화면과 공간 경험을 구성한 프로젝트",
     description: "캐릭터 비주얼과 iOS 테스트, 온보딩 화면을 함께 기록한 작업", role: "Character visual · 3D asset · Experience image",
     contribution: "캐릭터와 주요 비주얼 제작", result: "iOS 테스트 영상과 사용자 여정 이미지 제작", target: "Character · 3D Content · Spatial Experience",
     portfolioPoint: "캐릭터가 화면과 실제 환경 안에서 보이는 방식을 함께 설계", notes: "지정된 순서대로 배치", image: "./assets/c4-screen-recording-poster.jpg",
@@ -216,7 +216,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "saatchi", title: "Saatchi Gallery", year: "2023", status: "Finished", featured: false,
-    categories: ["전시"], tools: ["C4D"], summary: "Moving Waterfall 비주얼을 영국 사치 갤러리에서 전시한 프로젝트",
+    categories: ["Exhibition"], tools: ["Unreal"], summary: "Moving Waterfall 비주얼을 영국 사치 갤러리에서 전시한 프로젝트",
     description: "자연의 표면과 인공 구조가 겹치는 Moving Waterfall 이미지를 전시 공간으로 확장한 작업",
     role: "3D visual · Exhibition output", contribution: "전시용 비주얼 제작", result: "영국 Saatchi Gallery 전시",
     target: "Media Art · Exhibition · Experimental Visual", portfolioPoint: "단일 비주얼을 실제 전시 환경까지 연결",
@@ -228,8 +228,8 @@ window.ARCHIVE_SEED = [
     ], palette: 11
   },
   {
-    id: "japanese-house", title: "Japanese House", year: "2024", status: "Archived", featured: false,
-    categories: ["3D 영상작업"], tools: ["C4D", "Unreal"], summary: "일본 전통 건축 에셋을 활용한 environment scene",
+    id: "japanese-house", title: "Japanese House", year: "2025", status: "Archived", featured: false,
+    categories: ["3D / Motion"], tools: ["C4D"], summary: "일본 전통 건축 에셋을 활용한 environment scene",
     description: "전통 건축 구조를 모델링하고 환경 연출 가능성을 확인한 개인 작업", role: "Environment · Modeling",
     contribution: "개인 작업 100%", result: "모델링 테스트 이미지 제작", target: "Environment · 3D Modeling",
     portfolioPoint: "건축 형태와 구조를 3D로 정리", notes: "중단 작업 아카이브", image: "./assets/japanese-house-01.jpg",
@@ -237,7 +237,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "incheon-hologram", title: "Incheon Airport: Hologram", year: "2024", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["C4D"], summary: "인천국제공항 홀로그램 디스플레이용 3D 영상",
+    categories: ["3D / Motion"], tools: ["C4D"], summary: "인천국제공항 홀로그램 디스플레이용 3D 영상",
     description: "공항의 홀로그램 디스플레이 구조에 맞춰 전통 건축 요소와 빛을 구성한 영상",
     role: "3D scene · Lighting · Animation · Rendering", contribution: "홀로그램용 3D 콘텐츠 제작", result: "인천국제공항 홀로그램 콘텐츠 제작",
     target: "3D Motion · Media Art · Commercial CGI", portfolioPoint: "디스플레이 구조와 시점을 고려한 입체 장면 구성",
@@ -250,7 +250,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "incheon-seasons-spring", title: "Incheon Airport: Spring", year: "2024", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["C4D"], summary: "인천국제공항 초광폭 LED를 위한 봄 시즌 영상",
+    categories: ["3D / Motion"], tools: ["Unreal"], summary: "인천국제공항 초광폭 LED를 위한 봄 시즌 영상",
     description: "꽃과 자연의 색을 초광폭 화면에 펼쳐 계절의 분위기를 전달한 미디어 콘텐츠", role: "3D visual · Animation · Rendering",
     contribution: "봄 시즌 3D 콘텐츠 제작", result: "인천국제공항 대형 LED 실제 상영", target: "3D Motion · Media Art · Commercial CGI",
     portfolioPoint: "초광폭 화면의 비율과 실제 공간에서의 시인성을 고려", notes: "영상, 메인 이미지, 현장, 스토리보드 순서",
@@ -261,7 +261,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "incheon-holiday-chuseok", title: "Incheon Airport: Chuseok", year: "2024", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["C4D"], summary: "인천국제공항 초광폭 LED를 위한 추석 시즌 영상",
+    categories: ["3D / Motion"], tools: ["C4D"], summary: "인천국제공항 초광폭 LED를 위한 추석 시즌 영상",
     description: "명절 오브젝트와 캐릭터를 활용해 추석의 분위기를 초광폭 화면에 구성한 프로젝트", role: "3D visual · Animation · Rendering",
     contribution: "추석 시즌 3D 콘텐츠 제작", result: "인천국제공항 대형 LED용 콘텐츠 제작", target: "3D Motion · Media Art · Commercial CGI",
     portfolioPoint: "긴 화면 안에서 오브젝트의 리듬과 시선 이동 설계", notes: "지정 영상 1개와 854 → 501 → 703 이미지 순서. old 폴더 제외",
@@ -273,7 +273,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "mbc-from-then-on", title: "From Then On", year: "2023", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["Unreal"], summary: "Unreal Engine 5 영상 작업",
+    categories: ["3D / Motion"], tools: ["Unreal"], summary: "Unreal Engine 5 영상 작업",
     description: "Unreal Engine 5 환경과 카메라 연출을 연습한 프로젝트", role: "Environment · Lighting · Camera · Rendering",
     contribution: "개인 작업 100%", result: "25초 영상 제작", target: "Unreal · Environment · Realtime 3D",
     portfolioPoint: "Unreal 환경 구성과 시네마틱 카메라 테스트", notes: "MBC 3D 작업", image: "./assets/mbc-from-then-on-poster.jpg",
@@ -281,7 +281,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "mbc-crayon-shinchan", title: "Crayon Shin", year: "2023", status: "Finished", featured: false,
-    categories: ["캐릭터"], tools: ["C4D"], summary: "짱구 캐릭터와 집을 재구성한 Cinema 4D 작업",
+    categories: ["Character"], tools: ["C4D"], summary: "짱구 캐릭터와 집을 재구성한 Cinema 4D 작업",
     description: "캐릭터, 건축, 소품을 하나의 장면으로 구성하고 렌더링한 프로젝트", role: "Modeling · Material · Lighting · Rendering",
     contribution: "개인 작업 100%", result: "완성 렌더와 제작 화면 기록", target: "3D Generalist · Environment · Character",
     portfolioPoint: "캐릭터와 환경을 함께 구성한 씬 제작 연습", notes: "MBC 3D 작업", image: "./assets/mbc-crayon-01.jpg",
@@ -295,7 +295,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "mbc-figure", title: "Figure Box", year: "2023", status: "Finished", featured: false,
-    categories: ["캐릭터"], tools: ["C4D"], summary: "피규어와 패키지를 구성한 Cinema 4D 개인 작업",
+    categories: ["Character"], tools: ["C4D"], summary: "피규어와 패키지를 구성한 Cinema 4D 개인 작업",
     description: "캐릭터 피규어와 투명 패키지를 제품 비주얼로 구성한 작업", role: "Modeling · Material · Lighting · Rendering",
     contribution: "개인 작업 100%", result: "제품 렌더 이미지 제작", target: "Product Visual · 3D Generalist",
     portfolioPoint: "재질과 패키지 표현 연습", notes: "MBC 3D 작업", image: "./assets/mbc-figure.jpg",
@@ -303,7 +303,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "mbc-mars", title: "Mars", year: "2023", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["Unreal"], summary: "Unreal Engine 4로 구성한 화성 환경 영상",
+    categories: ["3D / Motion"], tools: ["Unreal"], summary: "Unreal Engine 4로 구성한 화성 환경 영상",
     description: "화성의 지형과 조명을 구성해 짧은 시네마틱으로 완성한 작업", role: "Environment · Lighting · Camera · Rendering",
     contribution: "개인 작업 100%", result: "10초 영상 제작", target: "Unreal · Environment · Realtime 3D",
     portfolioPoint: "지형과 분위기 중심의 환경 연출", notes: "MBC 3D 작업", image: "./assets/mbc-mars-poster.jpg",
@@ -311,7 +311,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "mbc-merry-christmas", title: "Merry Christmas", year: "2023", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["C4D"], summary: "Cinema 4D로 제작한 크리스마스 모션 작업",
+    categories: ["3D / Motion"], tools: ["C4D"], summary: "Cinema 4D로 제작한 크리스마스 모션 작업",
     description: "크리스마스 오브젝트와 짧은 모션을 구성한 프로젝트", role: "Modeling · Material · Lighting · Animation",
     contribution: "개인 작업 100%", result: "10초 영상 제작", target: "3D Motion · Commercial CGI",
     portfolioPoint: "짧은 루프 안에서 오브젝트와 분위기 구성", notes: "MBC 3D 작업", image: "./assets/mbc-christmas-poster.jpg",
@@ -319,7 +319,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "mbc-the-other-side", title: "The Other Side", year: "2023", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["Unreal"], summary: "Unreal Engine 4로 제작한 환경 시네마틱",
+    categories: ["3D / Motion"], tools: ["Unreal"], summary: "Unreal Engine 4로 제작한 환경 시네마틱",
     description: "어두운 공간과 조명을 활용해 장면의 분위기와 카메라 이동을 연습한 프로젝트",
     role: "Environment · Lighting · Camera · Rendering", contribution: "개인 작업 100%", result: "14초 영상 제작",
     target: "Unreal · Environment · Realtime 3D", portfolioPoint: "분위기 중심의 조명과 카메라 연출", notes: "MBC 3D 작업",
@@ -327,7 +327,7 @@ window.ARCHIVE_SEED = [
   },
   {
     id: "mbc-hogwarts", title: "Hogwarts", year: "2022", status: "Finished", featured: false,
-    categories: ["3D 영상작업"], tools: ["C4D"], summary: "Cinema 4D로 제작한 Hogwarts 환경 영상",
+    categories: ["3D / Motion"], tools: ["C4D"], summary: "Cinema 4D로 제작한 Hogwarts 환경 영상",
     description: "건축 환경, 밤 장면, 물 재질과 조명을 구성한 프로젝트", role: "Modeling · Material · Lighting · Animation · Rendering",
     contribution: "개인 작업 100%", result: "26초 영상과 제작 과정 이미지 완성", target: "Environment · 3D Generalist · Cinematic",
     portfolioPoint: "대형 환경 씬의 분위기와 카메라 연출 연습", notes: "MBC 3D 작업", image: "./assets/mbc-hogwarts-main.jpg",
